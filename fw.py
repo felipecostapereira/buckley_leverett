@@ -9,21 +9,19 @@ with c1:
 with c2:
     muw = st.slider('$\mu_{w}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
 with c3:
-    no = st.slider('$n_{o}$', value=1.6, min_value=1.0, max_value=5.0, step=0.2)
+    no = st.slider('$n_{o}$', value=2.6, min_value=1.0, max_value=5.0, step=0.2)
 with c4:
-    nw = st.slider('$n_{w}$', value=1.2, min_value=1.0, max_value=5.0, step=0.2)
+    nw = st.slider('$n_{w}$', value=2.0, min_value=1.0, max_value=5.0, step=0.2)
 with c5:
-    Swi = st.number_input('$S_{wi}$', value=0.15)
+    Swi = st.number_input('$S_{wi}$', value=0.10)
 with c6:
-    Sor = st.number_input('$S_{or}$', value=0.30)
+    Sor = st.number_input('$S_{or}$', value=0.22)
 with c7:
-    Krw_sor = st.number_input('$K_{rw}$', value=0.35)
+    Krw_sor = st.number_input('$K_{rw}$', value=0.40)
 with c8:
     Kro_swi = st.number_input('$K_{ro}$', value=0.90)
 
-# coef_ang = st.slider(r'$\alpha$', value=0.68, min_value=0.1, max_value=1.0, step=0.01)
-
-Sw = np.linspace(Swi,1-Sor,50)
+Sw = np.linspace(Swi,1-Sor,200)
 krw = Krw_sor * np.power((Sw-Swi)/(1-Swi-Sor), nw)
 kro = Kro_swi * np.power((1-Sor-Sw)/(1-Swi-Sor), no)
 
