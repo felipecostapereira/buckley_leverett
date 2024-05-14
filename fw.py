@@ -13,13 +13,13 @@ with c3:
 with c4:
     nw = st.slider('$n_{w}$', value=2.0, min_value=1.0, max_value=5.0, step=0.2)
 with c5:
-    Swi = st.number_input('$S_{wi}$', value=0.10)
+    Swi = st.number_input('$S_{wi}$', value=0.10, step=0.05)
 with c6:
-    Sor = st.number_input('$S_{or}$', value=0.22)
+    Sor = st.number_input('$S_{or}$', value=0.22, step=0.05)
 with c7:
-    Krw_sor = st.number_input('$K_{rw}$', value=0.40)
+    Krw_sor = st.number_input('$K_{rw}$', value=0.40, step=0.05)
 with c8:
-    Kro_swi = st.number_input('$K_{ro}$', value=0.90)
+    Kro_swi = st.number_input('$K_{ro}$', value=0.90, step=0.05)
 
 Sw = np.linspace(Swi,1-Sor,200)
 krw = Krw_sor * np.power((Sw-Swi)/(1-Swi-Sor), nw)
