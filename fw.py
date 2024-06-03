@@ -9,9 +9,9 @@ with c1:
 with c2:
     muw = st.slider('$\mu_{w}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
 with c3:
-    no = st.slider('$n_{o}$', value=2.6, min_value=1.0, max_value=5.0, step=0.2)
+    no = st.slider('$n_{o}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
 with c4:
-    nw = st.slider('$n_{w}$', value=2.0, min_value=1.0, max_value=5.0, step=0.2)
+    nw = st.slider('$n_{o}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
 with c5:
     Swi = st.number_input('$S_{wi}$', value=0.10, step=0.05)
 with c6:
