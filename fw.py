@@ -26,7 +26,7 @@ with st.container(border=True):
 
 c1, c2 = st.columns([2/8, 6/8])
 with c1: #corey
-    expanderCorey = st.expander("Corey", expanded=True)
+    expanderCorey = st.expander("Corey:red_circle:", expanded=True)
     with expanderCorey:
         colCorey = st.columns(2)
         with colCorey[0]:
@@ -35,7 +35,7 @@ with c1: #corey
             nw = st.number_input('$n_{w}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
 
 with c2: #let
-    expanderLet = st.expander("LET", expanded=True)
+    expanderLet = st.expander("LET:large_blue_circle:", expanded=True)
     with expanderLet:
         colLet = st.columns(6)
         with colLet[0]:
@@ -62,9 +62,9 @@ with st.container(border=True):
     with col_show[3]:
         show_Sw = st.checkbox(r'$\bar{S}_{w}$, $S_{wf}$', value=True)
     with col_show[4]:
-        show_corey = st.checkbox('Corey', value=True)
+        show_corey = st.checkbox('Corey:red_circle:', value=True)
     with col_show[5]:
-        show_let = st.checkbox('LET', value=True)
+        show_let = st.checkbox('LET:large_blue_circle:', value=True)
 
 Swn = np.linspace(0,1,200)
 Sw = Swi + Swn*(1-Sor-Swi) # denorm de sw
