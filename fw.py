@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-tabFw, _ = st.tabs (['$f_{w}$','x'])
+tabFwCorey, tabFwLet = st.tabs (['Corey','Let'])
 
-with tabFw:
+with tabFwCorey:
     c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
     with c1:
         muo = st.slider('$\mu_{o}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
@@ -53,10 +53,14 @@ with tabFw:
     a = fw[i]/(s-s0)
     b = -s0*fw[i]/(s-s0)
     sm = (1-b)/a
+    box = dict(pad=3.0, fc="white")
+
     plt.plot(Sw,a*Sw+b, 'k--')
     plt.plot([s], [fw[i]], 'ro')
-    plt.annotate(r'$S_{wf}$='+f'{s:.3f}', [s,fw[i]-0.05])
+    plt.annotate(r'$S_{wf}$='+f'{s:.3f}', [s,fw[i]-0.05], bbox=box)
     plt.plot([sm], [1], 'ro')
-    plt.annotate(r'$\bar{S}_{w}$='+f'{sm:.3f}', [sm-0.16,0.95])
+    plt.annotate(r'$\bar{S}_{w}$='+f'{sm:.3f}', [sm-0.16,0.95], bbox=box)
+
+    plt.annotate(r'$M=\frac{k_{rw}}{\mu_{w}}\frac{\mu_{o}}{K_{ro}}=$'+f'{Krw_sor/Kro_swi*muo/muw:.1f}', [0.02,0.94], bbox=box)
 
     st.pyplot(fig.figure, clear_figure=True)
