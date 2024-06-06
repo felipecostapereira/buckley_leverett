@@ -8,8 +8,8 @@ from matplotlib import colors
 
 
 # Fluid and Endpoints
-with st.container(border=True):
-    st.write(f'Fluid and endpoints')
+# with st.container(border=True):
+with st.expander("Viscosities and endpoints", expanded=True):
     col_fluid = st.columns(6)
     with col_fluid[0]:
         muo = st.slider('$\mu_{o}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
@@ -52,18 +52,20 @@ with c2: #let
             ew = st.number_input('$E_{w}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
 
 with st.container(border=True):
-    col_show = st.columns([1,1,2,2,2,2])
+    col_show = st.columns([1,1,1.5,0.9,1.5,1.5,1.5])
     with col_show[0]:
         show_kr = st.checkbox('$k_{r}$', value=True)
     with col_show[1]:
         show_fw = st.checkbox('$f_{w}$', value=True)
     with col_show[2]:
-        show_sec = st.checkbox('derivative', value=True)
+        show_sec = st.checkbox('secante', value=True)
     with col_show[3]:
-        show_Sw = st.checkbox(r'$\bar{S}_{w}$, $S_{wf}$', value=True)
+        show_der = st.checkbox("f'", value=True)
     with col_show[4]:
-        show_corey = st.checkbox('Corey:red_circle:', value=True)
+        show_Sw = st.checkbox(r'$\bar{S}_{w}$, $S_{wf}$', value=True)
     with col_show[5]:
+        show_corey = st.checkbox('Corey:red_circle:', value=True)
+    with col_show[6]:
         show_let = st.checkbox('LET:large_blue_circle:', value=True)
 
 Swn = np.linspace(0,1,200)
@@ -81,7 +83,7 @@ krw_let = Krw_sor * np.power(Swn,lw) / (np.power(Swn,lw) + ew*(np.power(1-Swn, t
 fw_let = 1/(1+muw/krw_let * kro_let/muo)
 deriv_let = np.gradient(fw_let, Sw)
 
-fig = plt.figure()
+fig = plt.figure(figsize=(8,6))
 if show_kr:
     if show_corey:
         plt.plot(Sw, krw_corey, 'r', label='Kr Corey', lw=.3)
@@ -148,7 +150,40 @@ if show_Sw:
         plt.annotate(f'{sj:.2f}', [sj-0.03,fw_let[j]-0.05], c='b')
         plt.annotate(f'{sm_let:.2f}', [sm_let-0.03,0.95], c='b')
 
-plt.annotate(r'$M=$'+f'{Krw_sor/Kro_swi*muo/muw:.2f}', [0.02,0.2], bbox=box)
-# plt.annotate(r'$M=\frac{k_{rw}}{\mu_{w}}\frac{\mu_{o}}{K_{ro}}=$'+f'{Krw_sor/Kro_swi*muo/muw:.1f}', [0.02,0.94], bbox=box)
-
+if show_der:
+    plt.twinx()
+    plt.ylabel("$f'_{w}$")
+    if show_corey:
+        plt.plot(Sw, deriv_corey, 'm')
+    if show_let:
+        plt.plot(Sw, deriv_let, 'c')
+plt.annotate(r'$M^{o}=$'+f'{Krw_sor/Kro_swi*muo/muw:.2f}', [0.02,0.2], bbox=box)
 st.pyplot(fig.figure, clear_figure=True)
+
+
+fig2 = plt.figure(figsize=(8,2))
+
+plt.plot([.5,1], [Swi,Swi], 'b')
+plt.plot([.5,.5], [Swi,s],'b')
+# plt.plot([0,0.5], [1-Sor,s], 'b')
+
+plt.plot([0,1], [s,s], 'r--')
+plt.annotate(r'$S_{wf}$='+f'{s:.2f}', [0.7,s-0.1], c='r')
+plt.plot([0,1], [sm_corey,sm_corey], 'k--')
+plt.annotate(r'$\bar{S}_{w}$='+f'{sm_corey:.2f}', [0.7,sm_corey+0.05], c='k')
+
+plt.plot([0,1], [1-Sor,1-Sor], 'g--')
+plt.annotate(r'1-$S_{or}$='+f'{1-Sor:.2f}', [0.7,1-Sor+0.05], c='g')
+
+plt.plot([0.4,0.4], [sm_corey,1-Sor], 'g', lw=3)
+
+x = np.linspace(0,0.5,20)
+k=-2*np.log(s/(1-Sor))
+f=(1-Sor)*np.exp(-k*x)
+plt.plot(x, f, 'b')
+
+plt.xlim([0,1])
+plt.ylim([0,1])
+plt.ylabel('$S_{w}$')
+plt.xlabel('$x$')
+st.pyplot(fig2.figure, clear_figure=True)
