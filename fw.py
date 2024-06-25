@@ -4,17 +4,12 @@ import matplotlib.pyplot as plt
 from matplotlib import colors
 
 
-# tabFwCorey, tabFwLet = st.tabs (['Corey','Let'])
-
-
-# Fluid and Endpoints
-# with st.container(border=True):
 with st.expander("Viscosities and endpoints", expanded=True):
     col_fluid = st.columns(6)
     with col_fluid[0]:
-        muo = st.slider('$\mu_{o}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
+        muo = st.number_input('$\mu_{o}$', value=1.0, min_value=0.1, max_value=80.0, step=0.1)
     with col_fluid[1]:
-        muw = st.slider('$\mu_{w}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
+        muw = st.number_input('$\mu_{w}$', value=1.0, min_value=0.1, max_value=2.0, step=0.1)
     with col_fluid[2]:
         Krw_sor = st.number_input('$K_{rw}$', value=0.40, step=0.05)
     with col_fluid[3]:
@@ -30,9 +25,9 @@ with c1: #corey
     with expanderCorey:
         colCorey = st.columns(2)
         with colCorey[0]:
-            no = st.number_input('$n_{o}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
+            no = st.number_input('$n_{o}$', value=2.0, min_value=1.0, max_value=6.0, step=0.1)
         with colCorey[1]:
-            nw = st.number_input('$n_{w}$', value=2.0, min_value=1.0, max_value=4.0, step=0.1)
+            nw = st.number_input('$n_{w}$', value=2.0, min_value=1.0, max_value=6.0, step=0.1)
 
 with c2: #let
     expanderLet = st.expander("LET:large_blue_circle:", expanded=True)
